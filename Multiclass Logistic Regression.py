@@ -169,7 +169,7 @@ def find_param(X, y):
         theta_list.append(theta1)
     return theta_list
 
-
+'''
 def predict(theta_list, X, y):
     y_uniq = list(set(y.flatten()))
     y_hat = [0]*len(y)
@@ -180,6 +180,13 @@ def predict(theta_list, X, y):
         for k in range(0, len(y)):
             if y_tr[k] == 1 and y1[k] >= 0.5:
                 y_hat[k] = y_uniq[i]
+    return y_hat
+    '''
+
+def predict(theta_list, X, y):
+    y_hat = [0,0,0]
+    for i in range(len(y)):
+        y_hat[i] = sigmoid(np.dot(X, theta_list[i]))
     return y_hat
 
 def featureExtractor(image):
@@ -284,9 +291,12 @@ for line in w:
 
 theta_list = np.array(theta_list, dtype=float)
 
-image = cv2.imread('./Imagenes 2do proyecto/AnimeMovie/18.png', cv2.IMREAD_COLOR)
+image = cv2.imread(
+    './Imagenes 2do proyecto/Cartoon3DMovie/18.png', cv2.IMREAD_COLOR)
 X = featureExtractor(image)
-
+X = np.array(X).flatten()
+Y = [1,2,3]
+Y = np.array(Y).flatten()
 y_hat = predict(theta_list, X, Y)
 
 print(y_hat)
