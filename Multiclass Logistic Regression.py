@@ -169,7 +169,7 @@ def find_param(X, y):
         theta_list.append(theta1)
     return theta_list
 
-'''
+
 def predict(theta_list, X, y):
     y_uniq = list(set(y.flatten()))
     y_hat = [0]*len(y)
@@ -181,13 +181,7 @@ def predict(theta_list, X, y):
             if y_tr[k] == 1 and y1[k] >= 0.5:
                 y_hat[k] = y_uniq[i]
     return y_hat
-    '''
 
-def predict(theta_list, X, y):
-    y_hat = [0,0,0]
-    for i in range(len(y)):
-        y_hat[i] = sigmoid(np.dot(X, theta_list[i]))
-    return y_hat
 
 def featureExtractor(image):
     res = []
@@ -291,15 +285,25 @@ for line in w:
 
 theta_list = np.array(theta_list, dtype=float)
 
+X = []
 image = cv2.imread(
-    './Imagenes 2do proyecto/Cartoon3DMovie/18.png', cv2.IMREAD_COLOR)
-X = featureExtractor(image)
-X = np.array(X).flatten()
+    './ImagenesDePrueba/Cartoon3DMovie/6.png', cv2.IMREAD_COLOR)
+X.append(featureExtractor(image))
+X.append(featureExtractor(image))
+X.append(featureExtractor(image))
+X = np.array(X)
+
 Y = [1,2,3]
 Y = np.array(Y).flatten()
+
 y_hat = predict(theta_list, X, Y)
 
-print(y_hat)
+if y_hat[0] == 1:
+    print("AnimeMovie")
+elif y_hat[1] == 2:
+    print("Cartoon2DMovie")
+elif y_hat[2] == 3:
+    print("Cartoon3DMovie")
 
 # Plotting the actual and predicted values
 f1 = plt.figure()
